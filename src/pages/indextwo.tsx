@@ -59,7 +59,7 @@ export const Home = (): JSX.Element => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        Powered by <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
+        Powered by <img src="images/vercel.svg" alt="Vercel Logo" className="logo" />
       </a>
     </footer>
 

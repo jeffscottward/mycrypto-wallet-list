@@ -10,11 +10,12 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import TableRow from '../components/TableRow'
 
 import getAddressData from '../utils/getAddressData'
+
 import addrShortener from '../utils/addrShortener'
 import calculateTotalFiatValueInWallet from '../utils/calculateTotalFiatValueInWallet'
 import sortTokensByFiatValue from '../utils/sortTokensByFiatValue'
 
-const Index = () => {
+export const Index = () => {
   const router = useRouter()
   const [ethData, setEthData]: any = useState({})
   const [searching, setSearching] = useState(false)
@@ -36,7 +37,9 @@ const Index = () => {
     let dataResult = await getAddressData(address)
     setETHAddress(address)
     setEthDataLoaded(dataResult.hasOwnProperty('ETH'))
-    setTokensSorted(sortTokensByFiatValue(dataResult.tokens))
+    if (dataResult.tokens) {
+      setTokensSorted(sortTokensByFiatValue(dataResult.tokens))
+    }
     setEthData(dataResult)
     setSearching(false)
   }
@@ -226,41 +229,44 @@ const Index = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  onClick={() => {
-                    window.open(
-                      `https://ethplorer.io/address/${'0x0000000000000000000000000000000000000000'}`,
-                      '_blank',
-                    )
-                  }}
-                >
-                  <td>Ethereum</td>
-                  <td>
-                    {(
-                      ((ethData.ETH.price.rate * ethData.ETH.balance) /
-                        calculateTotalFiatValueInWallet(ethData)) *
-                      100
-                    ).toFixed(2)}
-                    %
-                  </td>
-                  <td>
-                    <Box className="crypto">
-                      <span className="crypto-amount" sx={{ mr: 1 }}>
-                        {ethData.ETH.balance.toFixed(4)}
-                      </span>
-                      <span className="crypto-symbol">ETH</span>
-                    </Box>
-                    <Box className="fiat">
-                      <span className="fiat-symbol">$</span>
-                      <span className="fiat-value">
-                        <span>
-                          {(ethData.ETH.price.rate * ethData.ETH.balance).toFixed(2)}
+                {ethDataLoaded && ethData.ETH.balance > 0 && (
+                  <tr
+                    onClick={() => {
+                      window.open(
+                        `https://ethplorer.io/address/${'0x0000000000000000000000000000000000000000'}`,
+                        '_blank',
+                      )
+                    }}
+                  >
+                    <td>Ethereum</td>
+                    <td>
+                      {(
+                        ((ethData.ETH.price.rate * ethData.ETH.balance) /
+                          calculateTotalFiatValueInWallet(ethData)) *
+                        100
+                      ).toFixed(2)}
+                      %
+                    </td>
+                    <td>
+                      <Box className="crypto">
+                        <span className="crypto-amount" sx={{ mr: 1 }}>
+                          {ethData.ETH.balance.toFixed(4)}
                         </span>
-                      </span>
-                    </Box>
-                  </td>
-                </tr>
+                        <span className="crypto-symbol">ETH</span>
+                      </Box>
+                      <Box className="fiat">
+                        <span className="fiat-symbol">$</span>
+                        <span className="fiat-value">
+                          <span>
+                            {(ethData.ETH.price.rate * ethData.ETH.balance).toFixed(2)}
+                          </span>
+                        </span>
+                      </Box>
+                    </td>
+                  </tr>
+                )}
                 {ethDataLoaded &&
+                  tokensSorted.length > 0 &&
                   tokensSorted.map((token: any, idx: number) => {
                     return (
                       <TableRow

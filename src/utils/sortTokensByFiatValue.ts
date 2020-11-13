@@ -1,6 +1,6 @@
 import tokenFiatValue from './tokenFiatValue'
 
-export default function sortTokensByFiatValue (tokens: any) {
+export default function sortTokensByFiatValue (tokens: any): any[] {
   if (tokens) {
     let sortedTokens = tokens.sort((a, b) => { 
       const fiatValueA = tokenFiatValue(a)        

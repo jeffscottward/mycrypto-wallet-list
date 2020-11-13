@@ -1,4 +1,5 @@
-export default async function getAddressData (address: string) {
+// PromiseFulfilledResult<T>
+export default async function getAddressData (address: string): Promise<any> {
   const getethData = async () => {
     try {
       const response = await window.fetch(
@@ -10,5 +11,6 @@ export default async function getAddressData (address: string) {
       throw err
     }
   }
-  return await getethData()
+  let result = await getethData()
+  return result
 }

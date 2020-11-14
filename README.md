@@ -3,8 +3,12 @@
 ```
 # Install and run dev server
 yarn && yarn dev
-# Just Unit Test 
+```
+```
+# Jest Unit Tests
 yarn test:unit
+```
+```
 # Cypress E2E Test
 yarn test:e2e
 ```

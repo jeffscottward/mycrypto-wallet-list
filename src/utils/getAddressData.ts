@@ -3,7 +3,7 @@ export default async function getAddressData (address: string): Promise<any> {
   const getethData = async () => {
     try {
       const response = await window.fetch(
-        `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=freekey`,
+        `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=EK-kTHPx-LXrWGmC-3QLs5`,
       )
       const JSONData = await response.json()
       return JSONData

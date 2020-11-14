@@ -1,3 +1,14 @@
+# MC-Take-home
+
+```
+# Install and run dev server
+yarn && yarn dev
+# Just Unit Test 
+yarn test:unit
+# Cypress E2E Test
+yarn test:e2e
+```
+
 # NextJS Typescript Boilerplate
 
 Bootstrap a developer-friendly NextJS app configured with:

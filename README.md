@@ -46,10 +46,10 @@ We encourage you to include unit tests for your logic and your UI components. Yo
 
 **Bonus points for:**
 
-- Allow the user the change currency
-- Displaying a list of previous searches that the user can click to easily access previous results.
-- Polling to update the balances.
-- Using only node JSON_RPC calls 💪
+- Allow the user the change currency - Not available on Ethplorer API
+- Displaying a list of previous searches that the user can click to easily access previous results. - HTML5 Autocomplete ✔️
+- Polling to update the balances. - ✔️ setInterval
+- Using only node JSON_RPC calls 💪 - OD
 
 ## Good to know
 

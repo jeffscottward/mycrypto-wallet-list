@@ -9,11 +9,17 @@ import Layout from '../components/Layout'
 import LoadingSpinner from '../components/LoadingSpinner'
 import TableRow from '../components/TableRow'
 
-import getAddressData from '../utils/getAddressData'
-
 import addrShortener from '../utils/addrShortener'
 import calculateTotalFiatValueInWallet from '../utils/calculateTotalFiatValueInWallet'
 import sortTokensByFiatValue from '../utils/sortTokensByFiatValue'
+import getAddressData from '../utils/getAddressData'
+
+// Shortcut to stop banging on the API
+// import data from '../../test/__mocks__/ethplorer-response-tokens-unsorted-mock'
+
+// Long polling object that
+// doesn't ger re-triggered from renders
+let longPoll
 
 export const Index = () => {
   const router = useRouter()
@@ -33,8 +39,8 @@ export const Index = () => {
   }
 
   const updateStateWithData = async (address: string) => {
-    setSearching(true)
     let dataResult = await getAddressData(address)
+    // let dataResult = data
     setETHAddress(address)
     setEthDataLoaded(dataResult.hasOwnProperty('ETH'))
     if (dataResult.tokens) {
@@ -50,27 +56,41 @@ export const Index = () => {
     // Get entered Address
     let address = e.target[0].value
     // Run App
-    runApp(address)
+    initApp(address)
   }
 
-  const runApp = (address: string) => {
+  const initApp = (address: string) => {
     // Flush any old state
     resetState()
+    // Set searching
+    setSearching(true)
     // Update UI
     updateStateWithData(address)
     // Push new route for easy sharing
     router.push(`/?address=${address}`)
   }
 
+  // Auto Init App from shareable links
   useEffect(() => {
     if (router.query.address !== undefined) {
       let addr = String(router.query.address)
       setInputText(addr)
-      runApp(addr)
+      initApp(addr)
     } else {
       resetState()
     }
   }, [router.query.address])
+
+  // Start long polling once we have an address
+  useEffect(() => {
+    if (ethAddress !== '') {
+      longPoll = setInterval(() => {
+        updateStateWithData(ethAddress)
+      }, 1000)
+    } else {
+      clearInterval(longPoll)
+    }
+  }, [ethAddress])
 
   return (
     <Layout>
@@ -81,6 +101,7 @@ export const Index = () => {
         <form
           className="search-area"
           onSubmit={handleSubmit}
+          autoComplete="true"
           sx={{ display: 'flex', border: '1px solid teal', mb: 4 }}
         >
           <Box

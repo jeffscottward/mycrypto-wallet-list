@@ -90,7 +90,7 @@ export const Index = () => {
     if (ethAddress !== '') {
       longPoll = setInterval(() => {
         updateStateWithData(ethAddress)
-      }, 1000)
+      }, 10000)
     } else {
       clearInterval(longPoll)
     }

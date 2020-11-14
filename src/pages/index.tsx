@@ -13,6 +13,8 @@ import addrShortener from '../utils/addrShortener'
 import calculateTotalFiatValueInWallet from '../utils/calculateTotalFiatValueInWallet'
 import sortTokensByFiatValue from '../utils/sortTokensByFiatValue'
 import getAddressData from '../utils/getAddressData'
+import ethAddressValidator from '../utils/ethAddressValidator'
+import { validatorRegexRawString } from '../utils/addressRegex'
 
 // Shortcut to stop banging on the API
 // import data from '../../test/__mocks__/ethplorer-response-tokens-unsorted-mock'
@@ -74,8 +76,10 @@ export const Index = () => {
   useEffect(() => {
     if (router.query.address !== undefined) {
       let addr = String(router.query.address)
-      setInputText(addr)
-      initApp(addr)
+      if(ethAddressValidator(addr)){
+        setInputText(addr)
+        initApp(addr)
+      }
     } else {
       resetState()
     }
@@ -129,7 +133,7 @@ export const Index = () => {
           <Box sx={{ flex: 1, display: 'flex' }}>
             <input
               type="text"
-              pattern="^0x[a-fA-F0-9]{40}$"
+              pattern={validatorRegexRawString}
               placeholder="Enter an Ethereum address"
               name="address"
               value={inputText}

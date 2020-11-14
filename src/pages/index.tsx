@@ -130,7 +130,7 @@ export const Index = () => {
               alt="search-btn"
             />
           </Box>
-          <Box sx={{ flex: 1, display: 'flex' }}>
+          <Box sx={{ flex: 1, display: 'flex', height: '40px' }}>
             <input
               type="text"
               pattern={validatorRegexRawString}
@@ -141,7 +141,7 @@ export const Index = () => {
                 setInputText(e.target.value)
               }}
               sx={{
-                height: '40px',
+                height: '100%',
                 border: 'none',
                 flex: 1,
                 px: 3,
@@ -158,11 +158,14 @@ export const Index = () => {
               value="Search"
               sx={{
                 width: '100px',
+                height: '100%',
                 border: 'none',
                 backgroundColor: 'teal',
                 color: 'white',
                 fontSize: 3,
                 outline: 'none',
+                appearance: 'none',
+                borderRadius: '0'
               }}
             />
           </Box>

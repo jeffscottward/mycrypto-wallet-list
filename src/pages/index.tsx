@@ -57,8 +57,13 @@ export const Index = () => {
     e.preventDefault()
     // Get entered Address
     let address = e.target[0].value
-    // Run App
-    initApp(address)
+    // Check for valid address
+    if(ethAddressValidator(address)){
+      // Run App
+      initApp(address)
+    } else {
+      resetState()
+    }
   }
 
   const initApp = (address: string) => {

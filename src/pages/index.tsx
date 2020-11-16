@@ -15,6 +15,7 @@ import sortTokensByFiatValue from '../utils/sortTokensByFiatValue'
 import getAddressData from '../utils/getAddressData'
 import ethAddressValidator from '../utils/ethAddressValidator'
 import { validatorRegexRawString } from '../utils/addressRegex'
+import ethFiatValue from '../utils/ethFiatValue'
 
 // Shortcut to stop banging on the API
 // import data from '../../test/__mocks__/ethplorer-response-tokens-unsorted-mock'
@@ -274,7 +275,7 @@ export const Index = () => {
                     <td>Ethereum</td>
                     <td>
                       {(
-                        ((ethData.ETH.price.rate * ethData.ETH.balance) /
+                        (ethFiatValue(ethData) /
                           calculateTotalFiatValueInWallet(ethData)) *
                         100
                       ).toFixed(2)}

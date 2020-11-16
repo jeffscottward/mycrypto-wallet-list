@@ -1,3 +1,6 @@
+import tokenBalance from './tokenBalance'
+import tokenDecimals from './tokenDecimals'
+
 export default function tokenAsWholeUnits (token: any): number {
-  return (token.balance / Math.pow(10, token.tokenInfo.decimals)) || 0
+  return (tokenBalance(token) / Math.pow(10, tokenDecimals(token))) || 0
 } 

@@ -1,6 +1,6 @@
 import tokenAsWholeUnits from './tokenAsWholeUnits'
+import tokenPrice from './tokenPrice'
 
 export default function tokenFiatValue (token: any): number {
-  let tokenAmount = tokenAsWholeUnits(token)
-  return (token.tokenInfo.price.rate * tokenAmount) || 0
+  return (tokenPrice(token) * tokenAsWholeUnits(token)) || 0
 } 

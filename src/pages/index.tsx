@@ -292,7 +292,7 @@ export const Index = () => {
                         <span className="fiat-symbol">$</span>
                         <span className="fiat-value">
                           <span>
-                            {(ethData.ETH.price.rate * ethData.ETH.balance).toFixed(2)}
+                            {ethFiatValue(ethData).toFixed(2)}
                           </span>
                         </span>
                       </Box>

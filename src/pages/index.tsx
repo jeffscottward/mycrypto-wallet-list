@@ -20,7 +20,7 @@ import { validatorRegexRawString } from '../utils/addressRegex'
 // import data from '../../test/__mocks__/ethplorer-response-tokens-unsorted-mock'
 
 // Long polling object that
-// doesn't ger re-triggered from renders
+// doesn't get re-triggered from renders
 let longPoll
 
 export const Index = () => {
@@ -42,6 +42,7 @@ export const Index = () => {
 
   const updateStateWithData = async (address: string) => {
     let dataResult = await getAddressData(address)
+    // Shortcut to stop banging on the API
     // let dataResult = data
     setETHAddress(address)
     setEthDataLoaded(dataResult.hasOwnProperty('ETH'))
@@ -58,8 +59,7 @@ export const Index = () => {
     // Get entered Address
     let address = e.target[0].value
     // Check for valid address
-    if(ethAddressValidator(address)){
-      // Run App
+    if (ethAddressValidator(address)) {
       initApp(address)
     } else {
       resetState()
@@ -81,7 +81,7 @@ export const Index = () => {
   useEffect(() => {
     if (router.query.address !== undefined) {
       let addr = String(router.query.address)
-      if(ethAddressValidator(addr)){
+      if (ethAddressValidator(addr)) {
         setInputText(addr)
         initApp(addr)
       }
@@ -170,7 +170,7 @@ export const Index = () => {
                 fontSize: 3,
                 outline: 'none',
                 appearance: 'none',
-                borderRadius: '0'
+                borderRadius: '0',
               }}
             />
           </Box>

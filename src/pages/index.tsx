@@ -16,6 +16,7 @@ import getAddressData from '../utils/getAddressData'
 import ethAddressValidator from '../utils/ethAddressValidator'
 import { validatorRegexRawString } from '../utils/addressRegex'
 import ethFiatValue from '../utils/ethFiatValue'
+import ethBalance from '../utils/ethBalance'
 
 // Shortcut to stop banging on the API
 // import data from '../../test/__mocks__/ethplorer-response-tokens-unsorted-mock'
@@ -263,7 +264,7 @@ export const Index = () => {
                 </tr>
               </thead>
               <tbody>
-                {ethDataLoaded && ethData.ETH.balance > 0 && (
+                {ethDataLoaded && ethBalance(ethData) > 0 && (
                   <tr
                     onClick={() => {
                       window.open(
@@ -284,7 +285,7 @@ export const Index = () => {
                     <td>
                       <Box className="crypto">
                         <span className="crypto-amount" sx={{ mr: 1 }}>
-                          {ethData.ETH.balance.toFixed(4)}
+                          {ethBalance(ethData).toFixed(4)}
                         </span>
                         <span className="crypto-symbol">ETH</span>
                       </Box>
